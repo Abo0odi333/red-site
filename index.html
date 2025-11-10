@@ -1255,9 +1255,6 @@ hr{
 <a href="https://wa.me/966500187855?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%20%D8%A7%D8%AD%D8%AA%D8%A7%D8%AC%20%D9%85%D8%B3%D8%A7%D8%B9%D8%AF%D8%A9" class="whatsapp-support-btn" target="_blank">
     <i class="fab fa-whatsapp"></i>
 </a>
-<a href="https://www.instagram.com/torex.store/" class="instagram-support-btn" target="_blank">
-    <i class="fab fa-instagram"></i>
-</a>
 <div id="cart-modal" class="cart-modal">
     <div class="cart-header">
         <h3><i class="fas fa-shopping-cart"></i> سلة المشتريات</h3>
@@ -1282,8 +1279,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- 1. تعريف المتغيرات والعناصر ---
     let cart = JSON.parse(localStorage.getItem('abo0odiCart')) || [];
-    const phoneNumber = '905061997710'; 
-    
+    const phoneNumber = '966500187855'; 
+
     // عناصر السلة
     const cartModal = document.getElementById('cart-modal');
     const cartOverlay = document.getElementById('cart-overlay');
@@ -1297,28 +1294,24 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // عناصر المنتجات
     const mainProductsGrid = document.getElementById('all-products-grid'); 
-    const googleSheetURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSPa6WPFhppRsBLPOra9BMHHtrooU_sNmWX2eQG7F1EPUTD9MAX3LHT61iqX448Wt2gEchNHWth7Pze/pub?gid=0&single=true&output=csv';
+    const googleSheetURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTlUSvrMbis618rLXVg4WVUmPeJ86o3H0wcyafL3i8sUlvTYawjL7lagu7fyzqeB0UFfD0w8f8to4l3/pub?gid=0&single=true&output=csv';
     
-    // عناصر التقييمات والسلايدر
+    // ==== تعديل: عناصر التقييمات والسلايدر ====
     const reviewForm = document.getElementById('review-form');
     const submitReviewBtn = document.getElementById('submit-review-btn');
     const formMessage = document.getElementById('form-message');
+    // عناصر السلايدر
     const slider = document.getElementById('reviews-slider');
     const prevBtn = document.getElementById('slide-prev');
     const nextBtn = document.getElementById('slide-next');
-    let autoplayTimer; 
-    let currentReviewIndex = 0; 
-    let allReviews = []; 
-
-    // ==== تعديل JS: (التوجل) إضافة عناصر القائمة المنسدلة ====<
-    const dropdownToggle = document.getElementById('products-dropdown-toggle');
-    const dropdownMenu = document.getElementById('products-dropdown-menu');
-    const dropdownLinks = dropdownMenu.querySelectorAll('a.btn-list');
-    // ==== نهاية تعديل JS ====<
+    let autoplayTimer; // متغير لحفظ مؤقت التشغيل التلقائي
+    let currentReviewIndex = 0; // متغير لتتبع التقييم الحالي
+    let allReviews = []; // مصفوفة لحفظ التقييمات
+    // ==== نهاية تعديل العناصر ====
 
 
     /* !! الصق الروابط هنا !! */
-    const reviewSheetURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSPa6WPFhppRsBLPOra9BMHHtrooU_sNmWX2eQG7F1EPUTD9MAX3LHT61iqX448Wt2gEchNHWth7Pze/pub?gid=169688022&single=true&output=csv'; 
+    const reviewSheetURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTlUSvrMbis618rLXVg4WVUmPeJ86o3H0wcyafL3i8sUlvTYawjL7lagu7fyzqeB0UFfD0w8f8to4l3/pub?gid=169688022&single=true&output=csv'; 
     const reviewAppURL = 'https://script.google.com/macros/s/AKfycbxRtJxTemuP0SjWjNJuKtExgMntDz-GLdYh_v1zFvWLIaWyUqeJEdbLOxLgDgwSm1C3/exec'; 
     /* !! نهاية قسم الروابط !! */
 
@@ -1342,7 +1335,7 @@ document.addEventListener('DOMContentLoaded', () => {
             cartCounter.textContent = cart.length;
             cart.forEach((item, index) => {
                 total += item.price; 
-                whatsappMessage += `*${index + 1}. ${item.name}*\n - السعر: ${item.price.toFixed(2)} $\n`;
+                whatsappMessage += `*${index + 1}. ${item.name}*\n    - السعر: ${item.price.toFixed(2)} $\n`;
                 const cartItemElement = document.createElement('div');
                 cartItemElement.classList.add('cart-item');
                 cartItemElement.innerHTML = `
@@ -1439,21 +1432,21 @@ document.addEventListener('DOMContentLoaded', () => {
             const nameStyle = (product.nameSize && product.nameSize.trim() !== '') ? `style="font-size: ${product.nameSize}"` : '';
             const descStyle = (product.descSize && product.descSize.trim() !== '') ? `style="font-size: ${product.descSize}"` : '';
             const productCardHTML = `
-                <div class="product-card">
-                    <div class="product-image">
-                        <img src="${product.imageURL}" alt="${product.name}" />
-                    </div>
-                    <div class="product-info">
-                        <div class="product-name" ${nameStyle}>${product.name}</div>
-                        <div class="product-sub">${product.sub}</div>
-                        <div class="product-desc" ${descStyle}>${product.desc}</div>
-                        <div class="product-price">
-                            <span class="price">${parseFloat(product.price).toFixed(2)} $</span>
-                            <span class="old-price">${product.oldPrice}</span>
-                        </div>
-                        <button class="btn btnproduct">أضف إلى السلة</button>
-                    </div>
-                </div>`;
+            <div class="product-card">
+              <div class="product-image">
+                <img src="${product.imageURL}" alt="${product.name}" />
+              </div>
+              <div class="product-info">
+                <div class="product-name" ${nameStyle}>${product.name}</div>
+                <div class="product-sub">${product.sub}</div>
+                <div class="product-desc" ${descStyle}>${product.desc}</div>
+                <div class="product-price">
+                  <span class="price">${parseFloat(product.price).toFixed(2)} $</span>
+                  <span class="old-price">${product.oldPrice}</span>
+                </div>
+                <button class="btn btnproduct">أضف إلى السلة</button>
+              </div>
+            </div>`;
             targetGridElement.innerHTML += productCardHTML;
         });
     }
@@ -1515,7 +1508,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-    // ==== بداية وظائف التقييمات والسلايدر (معدلة) ====
+    // ==== بداية وظائف التقييمات والسلايدر (معدلة) ====<br>
     
     function createStarRating(rating) {
         let starsHTML = '';
@@ -1541,14 +1534,14 @@ document.addEventListener('DOMContentLoaded', () => {
             const reviewDate = new Date(review.timestamp).toLocaleDateString('ar-SA'); 
             
             allReviewsHTML += `
-                <div class="review-card">
-                    <div class="review-card-header">
-                        <h3 class="review-card-name">${review.name}</h3>
-                        <div class="review-card-rating">${ratingHTML}</div>
-                    </div>
-                    <p class="review-card-comment">${review.comment}</p>
-                    <div class="review-card-timestamp">${reviewDate}</div>
-                </div>`;
+            <div class="review-card">
+                <div class="review-card-header">
+                    <h3 class="review-card-name">${review.name}</h3>
+                    <div class="review-card-rating">${ratingHTML}</div>
+                </div>
+                <p class="review-card-comment">${review.comment}</p>
+                <div class="review-card-timestamp">${reviewDate}</div>
+            </div>`;
         });
         
         slider.innerHTML = allReviewsHTML;
@@ -1627,7 +1620,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     return { name, rating, timestamp, comment }; 
                 })
                 .filter(r => r && r.name && r.rating);
-            
+                
             displayReviews(reviews);
             
         } catch (error) {
@@ -1656,7 +1649,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 method: 'POST',
                 mode: 'no-cors', 
                 headers: {
-                    'Content-Type': 'application/json',
+                  'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({ name: name, rating: rating, comment: comment })
             });
@@ -1678,14 +1671,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // ==== نهاية وظائف التقييمات ====
+    // ==== نهاية وظائف التقييمات ====<br>
 
     // --- 5. التشغيل الأولي ---
     fetchProducts(); 
     fetchReviews(); 
     updateCartUI(); 
 
-    // ==== بداية: تعديل JS (التوجل) - إضافة منطق القائمة المنسدلة ====<
+    // ==== بداية: تعديل JS (التوجل) - إضافة منطق القائمة المنسدلة ====<br>
 
     // 1. فتح وإغلاق القائمة عند الضغط على الزر
     if(dropdownToggle) {
@@ -1713,7 +1706,7 @@ document.addEventListener('DOMContentLoaded', () => {
             dropdownMenu.classList.remove('show');
         }
     });
-    // ==== نهاية: تعديل JS ====<
+    // ==== نهاية: تعديل JS ====<br>
 
 });
 </script>
