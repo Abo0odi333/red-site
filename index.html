@@ -1265,7 +1265,7 @@ hr{
     </div>
     <div class="cart-footer">
         <a id="checkout-btn" href="#" class="btn" target="_blank">
-            <i class="fab fa-whatsapp"></i> إتمام الطلب (المجموع: <span id="cart-total">0</span> $)
+            <i class="fab fa-whatsapp"></i> إتمام الطلب (المجموع: <span id="cart-total">0</span> ر.س)
         </a>
         <button id="clear-cart-btn" class="btn btn-outline">
             <i class="fas fa-trash"></i> حذف كل المنتجات
@@ -1335,13 +1335,13 @@ document.addEventListener('DOMContentLoaded', () => {
             cartCounter.textContent = cart.length;
             cart.forEach((item, index) => {
                 total += item.price; 
-                whatsappMessage += `*${index + 1}. ${item.name}*\n    - السعر: ${item.price.toFixed(2)} $\n`;
+                whatsappMessage += `*${index + 1}. ${item.name}*\n    - السعر: ${item.price.toFixed(2)} ر.س\n`;
                 const cartItemElement = document.createElement('div');
                 cartItemElement.classList.add('cart-item');
                 cartItemElement.innerHTML = `
                     <div class="cart-item-details">
                         <p class="cart-item-name">${item.name}</p>
-                        <p class="cart-item-price">${item.price.toFixed(2)} $</p>
+                        <p class="cart-item-price">${item.price.toFixed(2)} ر.س</p>
                     </div>
                     <button class="cart-item-remove-btn" data-index="${index}">
                         &times;
@@ -1351,7 +1351,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
         cartTotalSpan.textContent = total.toFixed(2);
-        whatsappMessage += `\n*المجموع الكلي: ${total.toFixed(2)} $*`;
+        whatsappMessage += `\n*المجموع الكلي: ${total.toFixed(2)} ر.س*`;
         const encodedMessage = encodeURIComponent(whatsappMessage);
         checkoutBtn.href = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
     }
@@ -1411,7 +1411,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const productCard = e.target.closest('.product-card');
                 const name = productCard.querySelector('.product-name').textContent;
                 const priceString = productCard.querySelector('.price').textContent;
-                const price = parseFloat(priceString.replace(' $', '').trim());
+                const price = parseFloat(priceString.replace(' ر.س', '').trim());
                 const product = { name, price };
                 addToCart(product);
             });
@@ -1441,7 +1441,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="product-sub">${product.sub}</div>
                 <div class="product-desc" ${descStyle}>${product.desc}</div>
                 <div class="product-price">
-                  <span class="price">${parseFloat(product.price).toFixed(2)} $</span>
+                  <span class="price">${parseFloat(product.price).toFixed(2)} ر.س</span>
                   <span class="old-price">${product.oldPrice}</span>
                 </div>
                 <button class="btn btnproduct">أضف إلى السلة</button>
